@@ -1,6 +1,7 @@
 version: '3.5'
 services:
-  src:
+  server:
+    image: 'backend-challenge:src'
     build:
       context: src/
     volumes:
@@ -12,7 +13,25 @@ services:
       - api
     depends_on:
       - api
-
+  gather:
+    image: 'backend-challenge:src'
+    volumes:
+      - ./src:/app
+      - /app/node_modules
+    links:
+      - api
+      - db
+    environment:
+      - RUN_MODE=gather
+    depends_on:
+      - server
+      - api
+      - db
+  db:
+    image: 'mongo:3.6.20-xenial'
+    volumes:
+      - db-data:/data/db
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
   api:
     build:
       context: api/
@@ -25,3 +44,5 @@ services:
     #   - POSTGRES_USER=postgres
     #   - POSTGRES_DB=commando
     #   - POSTGRES_PASSWORD=example
+volumes:
+  db-data:

@@ -6,16 +6,19 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --forceExit"
+    "test": "jest --forceExit",
+    "gather": "gulp gather"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "mongodb": "^3.6.2",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
+    "gulp": "^4.0.2",
     "jest": "^26.5.2",
     "nodemon": "^2.0.4",
     "supertest": "^5.0.0"
