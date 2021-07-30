@@ -41,7 +41,7 @@ module.exports = {
    * @returns {Promise<Array<user>>}
    */
   async usersCollection () {
-    const blob = await fetch('http://api:8000')
+    const blob = await fetch('http://localhost:8000')
     const data = await blob.json()
     return data
   }

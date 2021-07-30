@@ -88,3 +88,43 @@ npm run test
 - Works and sends constant commits to the repository in personal
 - Send a pull request to the original repo (extra points)
 - Send the address of your fork (the repo in your user)
+
+### Initial Setup
+ - make a `.env` folder and set the environment fields in it
+ 
+ ```
+  NODE_ENV = test
+
+  TEST_USERNAME = <test_user>
+  TEST_PASS = <test_user_password>
+
+  # Example using MongoDB Atlas
+
+  # MONGODB_URI = mongodb+srv://<username>:<password>@<DB_URL>/<database_name>?retryWrites=true&w=majority
+  # MONGODB_DB = <db_name>
+
+ ```
+
+### To Run API
+ - Intall the dependencies via `npm install`
+ - Run the **Server** - `npm start`
+ - Run the worker **Worker** - `npm run worker` (Currently set to run every 1 min, can be modified as needed)
+
+### API endpoint syntax and URL formats
+
+- Tag filter `/users?tags = <value1, value2, value3,...value100>`
+- Id filter `/users?id = <userID>`
+- EyeColor filter `/users?eyecolor = <eyeColor>`
+- Friend Name filter `/users?friend = <friendName>`
+- Geozone filter `/users?geozone=<longitude>,<latitude>`
+- Date range from `/users?registered = <StartDate> - <EndDate>`, any correct date format is ok ,(`startDate < endDate`)
+- Sort by date of registration `/users?sortDate = <asc>` , default is `dsc` order
+- Two or more filters (like `/users?filter = <value> & filter2 = <value2>`)
+
+
+### Performance Related additions
+- Included indexing to optimze search
+- Auto-connect Database failure if anytime happens
+- Filters options are case-insensitive, to give more flexiblity
+- Dates can be of any correct format type, to give more flexiblity
+- Worker (cron-job) task will only run after it gets connected to the database, otherwise it will try reconnect first
