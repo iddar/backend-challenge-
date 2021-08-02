@@ -1,13 +1,30 @@
-version: '3.5'
+version: "3.5"
+
 services:
+
+  mysql:
+    image: mysql
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=user_service_db
+    expose:
+      - "3306"
+    ports:
+      - "3307:3306"
+
+  redis:
+    image: "bitnami/redis:latest"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
   src:
     build:
       context: src/
     volumes:
       - ./src:/app
-      - /app/node_modules
+      # - /app/node_modules
     ports:
-      - '3000:3000'
+      - "3000:3000"
     links:
       - api
     depends_on:
@@ -20,7 +37,7 @@ services:
       - ./api:/app
       - /app/node_modules
     ports:
-      - '8000:8000'
+      - "8000:8000"
     # environment:
     #   - POSTGRES_USER=postgres
     #   - POSTGRES_DB=commando
