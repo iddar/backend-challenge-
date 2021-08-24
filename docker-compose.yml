@@ -12,6 +12,8 @@ services:
       - api
     depends_on:
       - api
+      - redis
+    
 
   api:
     build:
@@ -21,6 +23,15 @@ services:
       - /app/node_modules
     ports:
       - '8000:8000'
+    depends_on: 
+      - redis
+
+  redis:
+    image: redis:6.2.5
+    container_name: redis
+    ports:
+      - '6379:6379'
+
     # environment:
     #   - POSTGRES_USER=postgres
     #   - POSTGRES_DB=commando
