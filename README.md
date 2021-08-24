@@ -1,21 +1,26 @@
-# Backend Challenge
+# Implementation
 
-Create a service to allowed to filter the data obtained from an external API that does not allow the filter of any kind, the data of this is updated every N hours, in the update they can disappear or add elements.
+This branch of this project is implemented in MongoDb using mongoose.
 
-Based on the example build filters for each of these categories id, eyeColor, tags,
+## URLs
 
-To complete the execution, you must work on the ./src folder, you can add as many files and dependencies as required. In the same way, images can be added to the Dockerfile if a service is required, eg databases.
-
-It can include databases, cronjobs, system scripts, etc. if necessary, the important thing is to provide filtering speed, up-to-date and consistent data.
-
-### URLs
-
-The base code must be completed for the following URLs to work correctly, the first returns a single element, the second all matches.
+The project has two urls.
 
 - `/users/:id`
-- `/users?filter=value`
+  - The above mentioned URL is a get request with user id being passed as a param
 
-You can explore the tests to learn a little about the expected performance.
+- `/users?filter=value`
+  - This url is a POST request with data bing passed as query .
+    - Eg: `http://localhost:3000/users?name=Young&registeredRange=2015-08-01T13:45:00.000Z,2018-03-16T09:47:00.000Z&geoData=37.916119,-127.161348&tags=ut,dolor, labore&email=young.velazquez@scenty.us&favoriteFruit=strawberry`
+    - For Friends /users?friends="..."
+    - For Tags /users?tags="tag1,tag2..."
+    - For Users by Registered Date Range /users?registeredRange=2015-08-01T13:45:00.000Z,2018-03-16T09:47:00.000Z
+    - For filtering by Geo Data /users?geoData="latitude,longitude"
+    - For everything else /users?PropertyName:PropertyValue
+
+### Tip
+
+To write the data to MongoDb uncomment the line from 23-27 in src/index.js.
 
 ### Sample data
 
@@ -53,21 +58,6 @@ You can explore the tests to learn a little about the expected performance.
 }]
 ```
 
-### Extra points
-
-Extra points, Improve the score.
-
-- Filtered by geo-zone `[latitude, longitude]`
-- Date range on `registered`
-- Filtered by `friends` by `name`
-- Filtering by multiple `tags` (like` / users? Tags = value1, value2, value3`)
-- Be able to combine two or more filters (like `/ users? Filter = value & filter2 = value2`)
-- Sort by date of registration `registered`
-- Include cache and/or search optimization
-- Complement the tests
-- Understand and adhere to the style code
-- Constant and clear commis
-- 
 ### Run enviroment
 
 ```sh
@@ -82,9 +72,3 @@ docker ps # To show id of containers `backend-challenge_src`
 docker exec -it container_id bash
 npm run test
 ```
-### Delivery process
-
-- First, you must create a fork of this repository
-- Works and sends constant commits to the repository in personal
-- Send a pull request to the original repo (extra points)
-- Send the address of your fork (the repo in your user)

@@ -12,7 +12,7 @@ services:
       - api
     depends_on:
       - api
-
+      - redis
   api:
     build:
       context: api/
@@ -21,6 +21,28 @@ services:
       - /app/node_modules
     ports:
       - '8000:8000'
+    depends_on: 
+      - redis
+  mongo:
+    image: mongo
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports: 
+      - "27017:27017"
+   
+  redis:
+    image: redis:6.2.5
+    container_name: redis
+    ports:
+      - '6379:6379'
+    depends_on: 
+      - mongo
+  
+  
+
+
     # environment:
     #   - POSTGRES_USER=postgres
     #   - POSTGRES_DB=commando
